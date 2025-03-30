@@ -72,15 +72,17 @@
       const formData = new FormData();
       formData.append("audio", audioFile);
 
-      // const backendUrl = BACKEND_URL;
-      // const response = await fetch(`${backendUrl}/api/transcribe`, {
+      const response = await fetch(
+        `${process.env.VITE_BACKEND_URL}/api/transcribe`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      // const response = await fetch(`/api/transcribe`, {
       //   method: "POST",
       //   body: formData,
       // });
-      const response = await fetch(`/api/transcribe`, {
-        method: "POST",
-        body: formData,
-      });
 
       if (!response.ok) {
         throw new Error(`Server responded with ${response.status}`);

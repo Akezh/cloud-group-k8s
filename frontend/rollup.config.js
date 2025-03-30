@@ -1,11 +1,14 @@
 import svelte from "rollup-plugin-svelte";
-// import replace from "@rollup/plugin-replace";
+import replace from "@rollup/plugin-replace";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import livereload from "rollup-plugin-livereload";
 import terser from "@rollup/plugin-terser";
 import css from "rollup-plugin-css-only";
 import { spawn } from "child_process";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -39,9 +42,12 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
-    // replace({
-    //   BACKEND_URL: JSON.stringify(process.env.BACKEND_URL || ""),
-    // }),
+    replace({
+      preventAssignment: true,
+      "process.env.VITE_BACKEND_URL": JSON.stringify(
+        process.env.VITE_BACKEND_URL
+      ),
+    }),
     svelte({
       compilerOptions: {
         dev: !production,

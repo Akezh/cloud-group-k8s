@@ -24,21 +24,16 @@
     error.set(null);
 
     try {
-      // const backendUrl = BACKEND_URL;
-      // const response = await fetch(`${backendUrl}/api/summarize`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ transcription: editedTranscription }),
-      // });
-      const response = await fetch(`/api/summarize`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ transcription: editedTranscription }),
-      });
+      const response = await fetch(
+        `${process.env.VITE_BACKEND_URL}/api/summarize`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ transcription: editedTranscription }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Server responded with ${response.status}`);
